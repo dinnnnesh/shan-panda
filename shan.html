@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐼 Shan Panda Toys 🛍️</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+        }
+        .shop-header {
+            background: #ff7043;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            background: #fff3e0;
+            margin: 10px 0;
+            transition: 0.3s;
+        }
+        .product:hover {
+            background: #ffe0b2;
+        }
+        .product img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .cart {
+            margin-top: 20px;
+            border-top: 3px solid #ff5722;
+            padding-top: 15px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        button {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e64a19;
+        }
+    </style>
+</head>
+<body>
+    <div class="shop-header">
+        <h1>🐼 Shan Panda shop 🛍️</h1>
+    </div>
+    <div class="container">
+        <div id="products"></div>
+        <div class="cart" id="cart"></div>
+    </div>
+    <script>
+        const products = [
+            { id: 1, name: "🐼 Cute Panda 😊", price: 799, img: "https://images-cdn.ubuy.co.in/6351b605426cc01a5f52e29a-usbinx-life-cute-panda-toy-dolls-plush.jpg", url: "https://www.amazon.in" },
+            { id: 2, name: "🐼 Bush Panda 😍", price: 699, img: "https://m.media-amazon.com/images/I/51sNvONm11L._AC_UF1000,1000_QL80_.jpg", url: "https://www.amazon.in" },
+            { id: 3, name: "🐼 Mini Panda 🥰", price: 899, img: "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/CIW/2024/5/2/d5a94aeb-6f44-4c8f-b513-6637216003cf_Toysinstamax_L7Q54D58IV_MN.JPG", url: "https://www.amazon.in" },
+            { id: 4, name: "🐼 Stuff Panda 🤗", price: 999, img: "https://i5.walmartimages.com/asr/32ba889e-1e2f-41d2-aacc-50e46755f682.bfc213f1da80c3c5d1b7e0078f5cd121.jpeg", url: "https://www.amazon.in" }
+        ];
+        
+        let cart = [];
+        const productContainer = document.getElementById("products");
+        const cartContainer = document.getElementById("cart");
+        
+        function renderProducts() {
+            productContainer.innerHTML = "";
+            products.forEach(product => {
+                productContainer.innerHTML += `
+                    <div class="product">
+                        <img src="${product.img}" alt="${product.name}">
+                        <p>${product.name} - ₹${product.price}</p>
+                        <button onclick="addToCart(${product.id})">🛒 Add to Cart</button>
+                    </div>
+                `;
+            });
+        }
+        
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            renderCart();
+        }
+        
+        function renderCart() {
+            cartContainer.innerHTML = "<h2 style='color: #d84315;'>🛍️ Selected Cart 🐼</h2>";
+            cart.forEach((item, index) => {
+                cartContainer.innerHTML += `
+                    <div class="product">
+                        <img src="${item.img}" alt="${item.name}">
+                        <p>${item.name} - ₹${item.price}</p>
+                        <button onclick="removeFromCart(${index})">❌ Remove</button>
+                    </div>
+                `;
+            });
+            if (cart.length > 0) {
+                cartContainer.innerHTML += `<button onclick="buyNow()">🛒 Buy Now</button>`;
+            }
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+        
+        function buyNow() {
+            window.location.href = "https://www.amazon.in";
+        }
+        
+        renderProducts();
+    </script>
+</body>
+</html>
